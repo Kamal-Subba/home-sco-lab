@@ -120,15 +120,24 @@ Sensitive configuration data, credentials, and real-world identifiers are exclud
 
 ---
 
-## Future Improvements
+## Project Status _This will update as the lab makes progress_
 
-Planned enhancements include:
+This lab is being built incrementally. The current state includes:
 
-- Deployment of intrusion detection/prevention systems (IDS/IPS)
-- Integration of threat intelligence feeds
-- Advanced alert correlation and rule tuning in Wazuh
-- Expanded attack simulation scenarios
-- Automated incident response scripting
+- pfSense deployed and functioning as edge firewall
+- Managed switch and access point configured for basic connectivity
+- Initial hardening applied to infrastructure components
+
+The following components are currently in progress:
+
+- VLAN segmentation implementation :
+    - Guest VLAN test attempted - resulted in network outage.
+    - TS and Doc : 
+- Inter-VLAN firewall policy enforcement
+- Wazuh SIEM deployment and log ingestion
+- Attack simulation and detection validation
+
+All changes, configurations, and issues encountered during the build process are documented as the environment evolves.
 
 ---
 
