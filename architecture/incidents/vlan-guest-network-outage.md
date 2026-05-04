@@ -40,3 +40,6 @@ pfsense(_thank god_).
 - After reboot, regained switch access and restored connectivity 
 - Reverted VLAN/trunk configuration to previous working state
 - Confirmed full network restoration (DHCP + internet + inter-device connectivity)
+
+## Lesson Learned
+Big takeaway from this is that VLAN changes can take the whole network down if you don’t stage them properly first. I didn’t validate the switch trunk config before applying it across the board, which basically broke communication between pfSense and everything else. Also learned that switch management access can get wiped out if VLAN tagging is off, so you’re forced into physical recovery steps like a power cycle just to get back in. Going forward I’ll definitely be testing VLAN changes on a single port first and taking config backups before touching anything that affects the trunk.
