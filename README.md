@@ -1,146 +1,236 @@
-# home-soc-lab (pfSense + VLAN Segmentation + Wazuh SIEM + Red/Blue Simulation)
+# home-soc-lab
 
-## Overview
+*(pfSense + VLAN Segmentation + Wazuh SIEM + Red/Blue Simulation)*
 
-This project documents the design, implementation, and operation of a home-based Security Operations Center (SOC) lab. The environment is built to simulate enterprise network segmentation, security monitoring, and adversarial activity in a controlled setting.
 
-The lab integrates firewalling, VLAN segmentation, wireless isolation, log collection, and security monitoring to replicate real-world security operations workflows.
+This repository documents the build process, architecture, troubleshooting, and ongoing evolution of my first self-hosted SOC and segmented home lab environment.
 
----
+The goal of this project is not only to show *how* the environment was built, but also to explain *why* certain technologies, configurations, and security controls were implemented.
 
-## Objectives
+Rather than presenting a finished environment, this repository is intended to function as a living technical journal that grows alongside the lab itself.
 
-The primary goals of this environment are:
-
-- Design and implement segmented network architecture using VLANs
-- Configure and manage firewall policies using pfSense
-- Deploy and operate a centralized logging and detection platform (Wazuh SIEM)
-- Simulate adversary techniques in a controlled lab environment
-- Develop detection and response workflows for security events
-- Improve practical understanding of defensive and offensive security concepts
+As the environment evolves, additional documentation, detections, attack simulations, and infrastructure changes will continue to be added.
 
 ---
 
-## Architecture Summary
+# Current State
 
-The environment is composed of the following core components:
+## Infrastructure
 
-- Edge Firewall: pfSense (Protectli V1410 hardware)
-- Switching Infrastructure: Netgate-managed switch
-- Wireless Infrastructure: TP-Link Omada Access Points
-- Security Monitoring: Wazuh SIEM
-- Network Segmentation: VLAN-based isolation model
-
----
-
-## Network Segmentation Model
-
-The network is divided into multiple security zones:
-
-- VLAN 10: Trusted internal network (user devices and management systems)
-- VLAN 20: Guest network with internet-only access
-- VLAN 30: Security testing and attack simulation environment
-- VLAN 40: Security monitoring and logging infrastructure (Wazuh)
-- VLAN 99: Network management and administrative access
-
-Each VLAN is isolated using firewall policies defined in pfSense.
+* pfSense deployed as primary router/firewall
+* Managed switch configured with 802.1Q VLANs
+* Omada controller deployed locally
+* Multi-AP wireless mesh configured and centrally managed
+* Centralized wireless SSID management operational
 
 ---
 
-## Security Controls Implemented
+## SIEM & Monitoring
 
-The following security controls are implemented within the environment:
-
-- Stateful firewall rules for inter-VLAN traffic control
-- Network segmentation based on trust boundaries
-- Wireless network isolation for guest access
-- Centralized log collection and analysis using Wazuh
-- Detection rules for simulated attack patterns
-- Traffic monitoring and alert correlation
+* Wazuh SIEM deployed as a standalone monitoring platform
+* Management laptop onboarded as monitored endpoint
+* Multiple personal endpoints integrated using Wazuh agents
+* Centralized endpoint telemetry and log collection operational
 
 ---
 
-## Red Team Simulation Scope
+## VLANs (Current)
 
-The red team component is limited to controlled lab activity and includes:
-
-- Network reconnaissance and enumeration
-- Port scanning and service discovery
-- Simulated lateral movement techniques
-- Basic credential-based attack simulation
-
-All activities are restricted to the lab environment.
+| VLAN    | Purpose            |
+| ------- | ------------------ |
+| VLAN 20 | Management Network |
+| VLAN 30 | Guest Network      |
 
 ---
 
-## Blue Team Operations
+## Wireless
 
-The blue team component focuses on detection and response:
-
-- Log ingestion from network and endpoint sources
-- Alert monitoring and tuning within Wazuh
-- Analysis of security events and anomalies
-- Incident response documentation and workflows
-- Firewall log correlation and traffic analysis
+* Controller-managed SSIDs
+* Multi-AP mesh deployment operational
+* Guest wireless segmentation currently being tested
+* VLAN-aware wireless infrastructure in progress
 
 ---
 
-## Tools and Technologies
+# Planned Implementations
 
-- pfSense firewall
-- Netgate switching infrastructure
-- TP-Link Omada wireless system
-- Wazuh SIEM platform
-- Kali Linux (attack simulation)
-- Windows and Linux endpoints
+The environment is still actively expanding. Planned additions include:
 
----
-
-## Repository Structure
-
-The repository is organized as follows:
-
-- architecture/              Network diagrams and design documentation
-- pfsense/                   Firewall configuration and policy documentation
-- switches/                  VLAN and switching configuration
-- wireless/                  Access point and SSID configuration
-- detection/                 SIEM configuration and alert rules
-- attack-simulations/       Documented adversary techniques
-- red-team/                 Offensive security notes and procedures
-- blue-team/                Defensive security workflows and playbooks
-- logs-samples/            Sample logs and alert outputs
+* RED / BLUE segmented lab networks
+* Dedicated attack simulation environment
+* pfSense log ingestion into Wazuh
+* Detection engineering and custom alert creation
+* Endpoint telemetry correlation
+* Adversary emulation scenarios
+* Threat hunting workflows
+* IDS/IPS tuning and validation
+* Infrastructure hardening and management isolation
+* Log parsing and alert enrichment
+* Network traffic analysis workflows
 
 ---
 
-## Security Considerations
+# Project Focus
 
-This environment is strictly isolated and used for educational and research purposes only. It does not interact with production systems or external networks beyond standard internet access through controlled firewall rules.
+This lab is being built to strengthen practical experience in:
 
-Sensitive configuration data, credentials, and real-world identifiers are excluded from this repository.
+* Network segmentation
+* Security monitoring
+* Threat detection
+* Incident investigation
+* Infrastructure troubleshooting
+* SIEM operations
+* Detection engineering
+* Defensive security architecture
+* Firewall policy design
+* Wireless infrastructure management
 
----
-
-## Project Status _This will update as the lab makes progress_
-
-This lab is being built incrementally. The current state includes:
-
-- pfSense deployed and functioning as edge firewall
-- Managed switch and access point configured for basic connectivity
-- Initial hardening applied to infrastructure components
-
-The following components are currently in progress:
-
-- VLAN segmentation implementation :
-    - Guest VLAN test attempted - resulted in network outage.
-    - TS and Doc : 
-- Inter-VLAN firewall policy enforcement
-- Wazuh SIEM deployment and log ingestion
-- Attack simulation and detection validation
-
-All changes, configurations, and issues encountered during the build process are documented as the environment evolves.
+The emphasis of this project is understanding systems at both the operational and security level — not simply deploying tools, but understanding how they communicate, fail, recover, and interact with one another under real conditions.
 
 ---
 
-## Purpose
+# Network Segmentation Model
 
-This repository serves as a technical record of a security-focused lab environment used to develop practical skills in network security, threat detection, and incident response.
+## Current Segmentation
+
+| VLAN    | Purpose                              |
+| ------- | ------------------------------------ |
+| VLAN 20 | Management / Infrastructure          |
+| VLAN 30 | Guest Network (internet-only access) |
+
+Current segmentation is enforced using pfSense firewall policies and VLAN-aware switching.
+
+---
+
+## Planned Segmentation Expansion
+
+| Planned VLAN | Purpose                               |
+| ------------ | ------------------------------------- |
+| RED          | Attack simulation / offensive testing |
+| BLUE         | Trusted internal systems              |
+| LOGGING      | SIEM and monitoring infrastructure    |
+| MGMT         | Dedicated administrative access       |
+
+The long-term goal is to simulate a small enterprise-style segmented environment capable of supporting both defensive monitoring and controlled attack simulation.
+
+---
+
+# Security Controls Implemented
+
+Current security controls include:
+
+* Stateful inter-VLAN firewall policies
+* Wireless network isolation
+* Guest network internet-only restrictions
+* Centralized endpoint monitoring through Wazuh
+* VLAN-based network segmentation
+* Controller-managed wireless infrastructure
+* DHCP-based infrastructure management with reserved addressing
+
+Additional controls and detections will continue to be implemented as the lab evolves.
+
+---
+
+# Red Team Simulation Scope
+
+The red team component of this lab is intended for controlled attack simulation and adversary emulation within isolated lab segments.
+
+Planned activities include:
+
+* Network reconnaissance and enumeration
+* Port scanning and service discovery
+* Basic credential attack simulation
+* Simulated lateral movement techniques
+* Detection validation against known attack behavior
+
+All testing is restricted to the isolated lab environment.
+
+---
+
+# Blue Team Operations
+
+The blue team side of the environment focuses on monitoring, detection, and investigation workflows.
+
+Current and planned blue team activities include:
+
+* Wazuh alert monitoring and tuning
+* Endpoint telemetry analysis
+* Firewall log analysis
+* Detection validation
+* Incident documentation
+* Threat hunting exercises
+* Security event correlation
+* Detection rule refinement
+
+---
+
+# Tools & Technologies
+
+* pfSense
+* Wazuh SIEM
+* TP-Link Omada ecosystem
+* Managed VLAN-capable switching
+* Ubuntu Linux
+* Kali Linux
+* Windows endpoints
+* UFW firewall
+* MongoDB
+* Wireless mesh infrastructure
+
+---
+
+# Repository Structure
+
+```text
+architecture/         Network diagrams and design documentation
+pfsense/              Firewall policies and VLAN configuration
+switches/             VLAN and switching configuration notes
+wireless/             AP deployment and wireless infrastructure
+detection/            SIEM rules, detections, and alert tuning
+attack-simulations/   Attack simulation documentation
+red-team/             Offensive testing notes
+blue-team/            Defensive workflows and investigations
+log-samples/          Sample logs and alert outputs
+```
+
+---
+
+# Security Considerations
+
+This environment is isolated and intended strictly for educational and research purposes.
+
+The lab does not intentionally target external systems, and all offensive testing is restricted to controlled internal environments.
+
+Sensitive configuration data, credentials, public IP addresses, and personal identifiers are excluded from this repository.
+
+---
+
+# Recent Progress
+
+## Recently Completed
+
+* Local Omada controller deployment
+* Multi-AP wireless mesh setup
+* VLAN-aware wireless infrastructure
+* Guest network segmentation testing
+* Infrastructure IP cleanup and DHCP reservation planning
+* AP adoption troubleshooting and controller onboarding
+
+---
+
+## Current Work
+
+* Guest VLAN validation
+* RED / BLUE VLAN deployment planning
+* Wazuh integration expansion
+* pfSense log forwarding
+* Detection simulation and validation
+* Additional infrastructure hardening
+
+---
+
+# Philosophy
+
+One of the goals of this repository is to document not only successful deployments, but also troubleshooting, failures, and recovery processes encountered during the build.
+
+This repository aims to document that process honestly as the environment continues to evolve.
