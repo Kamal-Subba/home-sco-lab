@@ -4,7 +4,7 @@ The deployment process also involved several infrastructure and controller adopt
 
 The troubleshooting process, root cause analysis, and remediation steps are documented separately here:
 
-[Omada AP Adoption Troubleshooting](wireless/incidents/omada-ap-adoption-troubleshooting.md)
+[Omada AP Adoption Troubleshooting](https://github.com/Kamal-Subba/home-sco-lab/blob/db8acd9bbdd1dc07639a2460f6c2f6a6be4f3d26/wireless/incidents/omada-ap-adoption-troubleshooting.md)
 
 ## Overview
 
