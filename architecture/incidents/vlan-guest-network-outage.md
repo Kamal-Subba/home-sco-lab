@@ -1,8 +1,6 @@
 ## VLAN Guest Network Failure (Outage Incident)
 
-Yup... 
-Took down the network while configuring guest vlan. 
-Here's the break down:
+A VLAN misconfiguration during guest network deployment caused a full switch outage requiring physical recovery.
 ## Summary
 During the initial attempt to deploy a guest network using VLAN segmentation,
 a misconfiguration caused a loss of network connectivity for all devices except for
@@ -32,7 +30,10 @@ pfsense(_thank god_).
 ## Switch Observations
 - Lost management console access immediately after configuration change 
 - Regained access only after assigning static IP directly to switch 
-- Behavior consistent with VLAN tagging / trunk configuration issue affecting management and client traffic 
+- Behavior consistent with VLAN tagging / trunk configuration issue affecting management and client traffic
+- 
+## Root Cause 
+Trunk port configuration was applied globally before being validated on an isolated port, causing VLAN tagging to break communication between pfSense and the switch management VLAN simultaneously.
 
 ## Recovery
 - Initial attempt to access switch via static IP failed 
