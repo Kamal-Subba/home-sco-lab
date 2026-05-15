@@ -9,7 +9,7 @@ The objective of this project is not simply to deploy security tools, but to und
 This environment is treated as a continuously evolving operational lab rather than a static showcase project.
  
 The repository is used to document:
-- Infrastructure architecture
+- Infrastructure architecture [Over View](architecture/README.md)
 - Security design decisions
 - Detection engineering
 - Segmentation strategy
@@ -68,9 +68,9 @@ The repository is used to document:
  
 | VLAN    | Purpose                          |
 |---------|----------------------------------|
-| VLAN 20 | Management / Infrastructure      |
-| VLAN 30 | Guest Wireless Network           |
-| VLAN 50 | SIEM / Monitoring Infrastructure |
+| VLAN #  | Management / Infrastructure      |
+| VLAN #  | Guest Wireless Network           |
+| VLAN #  | SIEM / Monitoring Infrastructure |
  
 Current segmentation is enforced through:
 - pfSense firewall policy controls
