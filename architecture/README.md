@@ -31,7 +31,7 @@ The design follows a firewall-centric enforcement model with explicit trust zone
            |                  |   |                      |
     +------+------+    +------+------+          +--------+------+
     |  MGMT NET   |    |  USER NET   |          |  GUEST NET    |
-    |  VLAN 20    |    |  (planned)  |          |  VLAN 30      |
+    |  VLAN #     |    |  (planned)  |          |  VLAN #       |
     |             |    |             |          |               |
     | - pfSense   |    | - Trusted   |          | - Internet    |
     | - Switch    |    |   Clients   |          |   only        |
@@ -43,7 +43,7 @@ The design follows a firewall-centric enforcement model with explicit trust zone
            |              |        |                  |
     +------+------+    +--+--------+----+
     |  BLUE NET   |    |    RED NET     |
-    |  VLAN 50    |    |   (planned)    |
+    |  VLAN #     |    |   (planned)    |
     |             |    |                |
     | - Wazuh     |    | - Kali Linux   |
     |   SIEM      |    | - Attack sim   |
@@ -77,11 +77,11 @@ The environment is divided into logically isolated security zones enforced throu
  
 | Zone | VLAN | Purpose | Trust Level | Status |
 |------|------|---------|-------------|--------|
-| MGMT NET | # | Infrastructure administration — firewall, switch, APs | Restricted | Operational |
-| GUEST NET | # | Internet-only access, fully isolated from internal infrastructure | Untrusted | Operational |
+| MGMT NET | # | Infrastructure administration — access restricted to dedicated hardwired infrastructure | Restricted | Operational |
+| GUEST NET| # | Internet-only access, fully isolated from internal infrastructure | Untrusted | Operational |
 | BLUE NET | # | Defensive monitoring, Wazuh SIEM, detection engineering | Analytical | Operational |
 | USER NET | TBD | General-purpose trusted client devices | Trusted | Planned |
-| RED NET | TBD | Controlled offensive testing and adversary emulation | Isolated | Planned |
+| RED NET  | TBD | Controlled offensive testing and adversary emulation | Isolated | Planned |
  
 ---
  
